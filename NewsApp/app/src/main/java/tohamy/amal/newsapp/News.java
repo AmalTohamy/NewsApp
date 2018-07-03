@@ -1,8 +1,6 @@
 package tohamy.amal.newsapp;
 
-import android.support.v7.app.AppCompatActivity;
-
-public class News extends AppCompatActivity {
+public class News {
     private String pillarName;
     private String newsText;
     private String date;

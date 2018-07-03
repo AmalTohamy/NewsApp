@@ -26,7 +26,6 @@ public class CustomAdapter extends ArrayAdapter<News> {
                     R.layout.activity_news_list, parent, false);
         }
 
-
         News currentPosition = getItem(position);
 
         TextView pillarName = listItemView.findViewById(R.id.pillar_name_text_view);
@@ -35,16 +34,12 @@ public class CustomAdapter extends ArrayAdapter<News> {
         TextView news = listItemView.findViewById(R.id.news_text_view);
         news.setText(currentPosition.getNewsText());
 
-
         String date = currentPosition.getDate().substring(0, 10);
-        //Date date = new Date(currentPosition.getDate());
-        //String formattedDate = formatDate(date);
         TextView dateTextView = listItemView.findViewById(R.id.date_text_view);
         dateTextView.setText(date);
 
         String time = currentPosition.getDate().substring(12, 16);
         TextView timeTextView = listItemView.findViewById(R.id.time_text_view);
-        //String formattedTime = formatTime(time);
         timeTextView.setText(time);
 
         return listItemView;
