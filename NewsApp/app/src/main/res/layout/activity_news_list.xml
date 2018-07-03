@@ -8,9 +8,9 @@
     tools:context=".news_list">
 
     <LinearLayout
-        android:layout_width="244dp"
+        android:layout_width="@dimen/linear_layout_width"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="@dimen/linear_layout_margin_end"
         android:orientation="vertical">
 
         <TextView
@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
+            android:textSize="@dimen/news_text_size"
             tools:text="news........" />
 
     </LinearLayout>
