@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings_title">
+
+    <ListPreference
+        android:defaultValue="@string/default_news"
+        android:key="@string/search_by_pillard_key"
+        android:title="@string/search_by_pillar_label" />
+
+</PreferenceScreen>

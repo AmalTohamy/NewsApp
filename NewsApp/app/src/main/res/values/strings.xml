@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">NewsApp</string>
-    <string name="no_news">No News To Show</string>
+    <string name="no_news">Currently there are no stories for you. Please come back later and try again.</string>
     <string name="no_internet">No Internet Connection</string>
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">News Settings</string>
+    <string name="pillar_name">pillarName</string>
+    <string name="news" translatable="false">News</string>
+    <string name="sport" translatable="false">Sport</string>
+    <string name="life_style" translatable="false">Life Style</string>
+    <string name="arts" translatable="false">Arts</string>
+    <string name="opinion" translatable="false">Opinion</string>
+    <string name="culture" translatable="false">Culture</string>
+    <string name="search_by_pillar_label">Favourite Pillar</string>
+
+    <string name="search_by_pillard_key" translatable="false">Favourite Pillar</string>
+    <string name="setting_search_by_news_key" translatable="false">news</string>
+    <string name="default_news">Default</string>
+
 </resources>

@@ -23,7 +23,7 @@ public class CustomAdapter extends ArrayAdapter<News> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.activity_news_list, parent, false);
+                    R.layout.news_list_item, parent, false);
         }
 
         News currentPosition = getItem(position);

@@ -5,11 +5,16 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -28,12 +33,14 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
      * This really only comes into play if you're using multiple loaders.
      */
     private static final int NEWS_LOADER_ID = 1;
-    String ApiKey = BuildConfig.GardiansAPIKey;
+    String ApiKeyValue = BuildConfig.GardiansAPIKey;
     private final String URL =
-            "https://content.guardianapis.com/search?api-key=" + ApiKey;
+            "https://content.guardianapis.com/search?" + ApiKeyValue;
+    // Constant for the API search Key
+    private static final String API_KEY_STRING = "api-key";
     ImageView noInternetImage;
     ListView listView;
-    TextView emptyText;
+    TextView emptyTextView;
     ProgressBar progressBar;
     private CustomAdapter customAdapter;
 
@@ -46,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         customAdapter = new CustomAdapter(this, new ArrayList<News>());
         listView.setAdapter(customAdapter);
         listView.setEmptyView(noInternetImage);
-        listView.setEmptyView(emptyText);
+        listView.setEmptyView(emptyTextView);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -83,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         } else {
             noInternetImage = findViewById(R.id.no_internet_image_view);
             noInternetImage.setImageResource(R.drawable.no_internet_connection);
-            emptyText = findViewById(R.id.no_internet_text_view);
-            emptyText.setText(R.string.no_internet);
+            emptyTextView = findViewById(R.id.no_internet_text_view);
+            emptyTextView.setText(R.string.no_internet);
             Toast.makeText(this, "No internet", Toast.LENGTH_LONG).show();
             progressBar = findViewById(R.id.progress_bar);
             progressBar.setVisibility(View.GONE);
@@ -94,8 +101,19 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String searchByPillar = sharedPrefs.getString(
+                getString(R.string.search_by_pillard_key),
+                getString(R.string.search_by_pillar_label));
+        Uri baseUri = Uri.parse(URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("favourite pillar", searchByPillar);
+        uriBuilder.appendQueryParameter(API_KEY_STRING, ApiKeyValue);
+
         // Create a new loader for the given URL
-        return new NewsLoader(this, URL);
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -112,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         }
 
         if (news.isEmpty()) {
-            emptyText.setText(R.string.no_news);
+            emptyTextView.setText(R.string.no_news);
         }
     }
 
@@ -122,4 +140,33 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         customAdapter.clear();
     }
 
+    // This method initialize the contents of the Activity's options menu.
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the Options Menu we specified in XML
+        Log.e("inflate", "start inflate");
+        getMenuInflater().inflate(R.menu.menu, menu);
+        Log.e("done inflate", "SUCCESS");
+        return true;
+    }
+
+    //This method is where we can setup the specific action
+    //that occurs when any of the items in the Options Menu are selected.
+    //This method passes the MenuItem that is selected:
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.e("in item selec", "SUCCESS");
+        //To determine which item was selected and what action to take,
+        //call getItemId, which returns the unique ID for the menu item
+        //(defined by the android:id attribute in the menu resource).
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            Log.e("done item selec", "SUCCESS");
+            return true;
+        }
+        Log.e("done item selec", "SUCCESS");
+        return super.onOptionsItemSelected(item);
+    }
 }
