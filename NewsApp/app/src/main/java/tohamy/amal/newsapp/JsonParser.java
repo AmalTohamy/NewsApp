@@ -52,10 +52,14 @@ public final class JsonParser {
                 String date = currentNews.getString("webPublicationDate");
 
                 JSONArray tagsArray = currentNews.getJSONArray("tags");
+                String firstName;
+                String secondName;
                 String authorName = "";
                 for (int j = 0; j < tagsArray.length(); j++) {
                     JSONObject currentTag = tagsArray.getJSONObject(j);
-                    authorName = currentTag.getString("webTitle");
+                    firstName = currentTag.getString("firstName");
+                    secondName = currentTag.getString("lastName");
+                    authorName = firstName + secondName;
                 }
 
                 News news = new News(sectionName, newstext, authorName, date, webUrl);
