@@ -45,12 +45,10 @@ public final class JsonParser {
             // For each news in the newsArray, create an {@link News} object
             for (int i = 0; i < newsArray.length(); i++) {
                 JSONObject currentNews = newsArray.getJSONObject(i);
-
                 String newstext = currentNews.getString("webTitle");
                 String webUrl = currentNews.getString("webUrl");
                 String sectionName = currentNews.getString("sectionName");
                 String date = currentNews.getString("webPublicationDate");
-
                 JSONArray tagsArray = currentNews.getJSONArray("tags");
                 String firstName;
                 String secondName;
