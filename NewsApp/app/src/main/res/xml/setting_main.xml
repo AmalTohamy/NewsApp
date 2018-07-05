@@ -3,10 +3,10 @@
     android:title="@string/settings_title">
 
     <ListPreference
-        android:defaultValue="@string/default_news"
+        android:defaultValue="@string/news_value"
         android:entries="@array/settings_order_by_labels"
         android:entryValues="@array/settings_order_by_values"
-        android:key="@string/search_by_pillar_key"
-        android:title="@string/search_by_pillar_label" />
+        android:key="@string/search_by_section_key"
+        android:title="@string/search_by_section_label" />
 
 </PreferenceScreen>

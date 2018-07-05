@@ -7,7 +7,7 @@ public class News {
     private String url;
     private String authorName;
 
-    public News(String pillarName, String newsText, String authorName,String date, String url) {
+    public News(String pillarName, String newsText, String authorName, String date, String url) {
         this.pillarName = pillarName;
         this.newsText = newsText;
         this.date = date;

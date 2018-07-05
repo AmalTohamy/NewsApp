@@ -48,19 +48,17 @@ public final class JsonParser {
 
                 String newstext = currentNews.getString("webTitle");
                 String webUrl = currentNews.getString("webUrl");
-                String pillarName = currentNews.getString("pillarName");
+                String sectionName = currentNews.getString("sectionName");
                 String date = currentNews.getString("webPublicationDate");
 
                 JSONArray tagsArray = currentNews.getJSONArray("tags");
                 String authorName = "";
-                for (int j = 0; j< tagsArray.length(); j++)
-                {
+                for (int j = 0; j < tagsArray.length(); j++) {
                     JSONObject currentTag = tagsArray.getJSONObject(j);
-
                     authorName = currentTag.getString("webTitle");
                 }
 
-                News news = new News(pillarName, newstext, authorName,date, webUrl);
+                News news = new News(sectionName, newstext, authorName, date, webUrl);
                 newsList.add(news);
             }
 

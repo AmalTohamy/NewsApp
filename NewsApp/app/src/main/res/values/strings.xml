@@ -4,29 +4,22 @@
     <string name="no_internet">No Internet Connection</string>
     <string name="settings_menu_item">Settings</string>
     <string name="settings_title">News Settings</string>
-    <string name="pillar_name">pillarName</string>
+    <string name="section_name">pillarName</string>
     <string name="news_label">News</string>
     <string name="news_value" translatable="false">news</string>
-
     <string name="sport_label">Sport</string>
     <string name="sport_value" translatable="false">sport</string>
-
     <string name="life_style_label">Life Style</string>
     <string name="life_style_value" translatable="false">life style</string>
-
     <string name="arts_label">Arts</string>
     <string name="arts_value" translatable="false">arts</string>
-
     <string name="opinion_label">Opinion</string>
     <string name="opinion_value" translatable="false">opinion</string>
-
-    <string name="culture_label">Culture</string>
-    <string name="culture_value" translatable="false">culture</string>
-
-    <string name="search_by_pillar_label">Favourite Pillar</string>
-
-    <string name="search_by_pillar_key" translatable="false">Favourite Pillar</string>
+    <string name="technology_label">Technology</string>
+    <string name="technology_value" translatable="false">technology</string>
+    <string name="society_label">Society</string>
+    <string name="society_value">society</string>
+    <string name="search_by_section_label">Favourite Section</string>
+    <string name="search_by_section_key" translatable="false">Favourite Section</string>
     <string name="setting_search_by_news_key" translatable="false">news</string>
-    <string name="default_news">Default</string>
-
 </resources>

@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,12 +32,11 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
      * This really only comes into play if you're using multiple loaders.
      */
     private static final int NEWS_LOADER_ID = 1;
-    //String ApiKeyValue = BuildConfig.GardiansAPIKey;
-    String ApiKeyValue = "bfbb3e0c-8435-4abc-81ff-de2876a29d82";
-    private final String URL =
-            "https://content.guardianapis.com/search?show-tags=contributor&" + ApiKeyValue;
     // Constant for the API search Key
     private static final String API_KEY_STRING = "api-key";
+    private final String URL =
+            "https://content.guardianapis.com/search?show-tags=contributor&";
+    String ApiKeyValue = "bfbb3e0c-8435-4abc-81ff-de2876a29d82";
     ImageView noInternetImage;
     ListView listView;
     TextView emptyTextView;
@@ -55,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         listView.setAdapter(customAdapter);
         listView.setEmptyView(noInternetImage);
         listView.setEmptyView(emptyTextView);
+        emptyTextView = findViewById(R.id.no_internet_text_view);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -91,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         } else {
             noInternetImage = findViewById(R.id.no_internet_image_view);
             noInternetImage.setImageResource(R.drawable.no_internet_connection);
-            emptyTextView = findViewById(R.id.no_internet_text_view);
             emptyTextView.setText(R.string.no_internet);
             Toast.makeText(this, "No internet", Toast.LENGTH_LONG).show();
             progressBar = findViewById(R.id.progress_bar);
@@ -104,17 +102,20 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String searchByPillar = sharedPrefs.getString(
-                getString(R.string.search_by_pillar_key),
-                getString(R.string.search_by_pillar_label));
+        String searchBySection = sharedPrefs.getString(
+                getString(R.string.search_by_section_key),
+                getString(R.string.news_value));
+
         Uri baseUri = Uri.parse(URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
-        uriBuilder.appendQueryParameter("favourite pillar", searchByPillar);
+
+        uriBuilder.appendQueryParameter("section", searchBySection);
         uriBuilder.appendQueryParameter(API_KEY_STRING, ApiKeyValue);
 
         // Create a new loader for the given URL
         return new NewsLoader(this, uriBuilder.toString());
+
     }
 
     @Override
@@ -131,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         }
 
         if (news.isEmpty()) {
+
             emptyTextView.setText(R.string.no_news);
         }
     }
@@ -145,9 +147,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the Options Menu we specified in XML
-        Log.e("inflate", "start inflate");
         getMenuInflater().inflate(R.menu.menu, menu);
-        Log.e("done inflate", "SUCCESS");
         return true;
     }
 
@@ -163,22 +163,9 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         if (id == R.id.action_settings) {
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
-            Log.e("done item selec", "SUCCESS");
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Get a reference to the LoaderManager, in order to interact with loaders.
-        LoaderManager loaderManager = getLoaderManager();
-
-        // Restart the loader. Pass in the int ID constant defined above and pass in null for
-        // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-        // because this activity implements the LoaderCallbacks interface).//
-        loaderManager.restartLoader(NEWS_LOADER_ID, null, this);
-    }
 }

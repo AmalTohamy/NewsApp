@@ -24,7 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/no_internet_image_view"
         android:layout_centerHorizontal="true"
-        android:textColor="@android:color/black" />
+        android:layout_centerInParent="true"
+        android:padding="16dp"
+        android:textSize="24sp" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
