@@ -5,12 +5,14 @@ public class News {
     private String newsText;
     private String date;
     private String url;
+    private String authorName;
 
-    public News(String pillarName, String newsText, String date, String url) {
+    public News(String pillarName, String newsText, String authorName,String date, String url) {
         this.pillarName = pillarName;
         this.newsText = newsText;
         this.date = date;
         this.url = url;
+        this.authorName = authorName;
     }
 
     public String getPillarName() {
@@ -34,4 +36,9 @@ public class News {
     public String getUrl() {
         return url;
     }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
 }

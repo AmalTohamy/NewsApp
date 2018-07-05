@@ -34,6 +34,9 @@ public class CustomAdapter extends ArrayAdapter<News> {
         TextView news = listItemView.findViewById(R.id.news_text_view);
         news.setText(currentPosition.getNewsText());
 
+        TextView authorNameTextView = listItemView.findViewById(R.id.author_name_text_view);
+        authorNameTextView.setText(currentPosition.getAuthorName());
+
         String date = currentPosition.getDate().substring(0, 10);
         TextView dateTextView = listItemView.findViewById(R.id.date_text_view);
         dateTextView.setText(date);

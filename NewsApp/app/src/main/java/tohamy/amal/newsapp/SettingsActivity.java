@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.BaseAdapter;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -25,17 +26,16 @@ public class SettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.setting_main);
 
-            Preference searchPillar = findPreference(getString(R.string.setting_search_by_news_key));
+            Preference searchPillar = findPreference(getString(R.string.search_by_pillar_key));
             bindPreferenceSummaryToValue(searchPillar);
             Log.e("done Fragment", "SUCESS");
         }
 
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
-            Log.e("pref. chang" , "Sucess");
             // The code in this method takes care of updating the displayed preference summary after it has been changed
-            String stringValue = value.toString();
-            preference.setSummary(stringValue);
+//            String stringValue = value.toString();
+//            //preference.setSummary(stringValue);
 //            if (preference instanceof ListPreference) {
 //                ListPreference listPreference = (ListPreference) preference;
 //                int prefIndex = listPreference.findIndexOfValue(stringValue);
@@ -46,12 +46,17 @@ public class SettingsActivity extends AppCompatActivity {
 //            } else {
 //                preference.setSummary(stringValue);
 //            }
-            Log.e("done pref. chang", "Success");
+//
+//            ((BaseAdapter)getPreferenceScreen().getRootAdapter()).notifyDataSetChanged();
+//            return true;
+            String stringValue = value.toString();
+            preference.setSummary(stringValue);
             return true;
         }
 
         private void bindPreferenceSummaryToValue(Preference preference) {
             Log.e("in bin va", "success");
+            preference.setOnPreferenceChangeListener(this);
             SharedPreferences preferences =
                     PreferenceManager.getDefaultSharedPreferences(preference.getContext());
             String preferenceString = preferences.getString(preference.getKey(), "");

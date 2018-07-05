@@ -4,7 +4,9 @@
 
     <ListPreference
         android:defaultValue="@string/default_news"
-        android:key="@string/search_by_pillard_key"
+        android:entries="@array/settings_order_by_labels"
+        android:entryValues="@array/settings_order_by_values"
+        android:key="@string/search_by_pillar_key"
         android:title="@string/search_by_pillar_label" />
 
 </PreferenceScreen>

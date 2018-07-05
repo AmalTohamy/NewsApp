@@ -33,9 +33,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
      * This really only comes into play if you're using multiple loaders.
      */
     private static final int NEWS_LOADER_ID = 1;
-    String ApiKeyValue = BuildConfig.GardiansAPIKey;
+    //String ApiKeyValue = BuildConfig.GardiansAPIKey;
+    String ApiKeyValue = "bfbb3e0c-8435-4abc-81ff-de2876a29d82";
     private final String URL =
-            "https://content.guardianapis.com/search?" + ApiKeyValue;
+            "https://content.guardianapis.com/search?show-tags=contributor&" + ApiKeyValue;
     // Constant for the API search Key
     private static final String API_KEY_STRING = "api-key";
     ImageView noInternetImage;
@@ -61,10 +62,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
                 News currentNews = customAdapter.getItem(position);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
-                Uri earthquakeUri = Uri.parse(currentNews.getUrl());
+                Uri newsUri = Uri.parse(currentNews.getUrl());
 
                 // Create a new intent to view the earthquake URI
-                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, earthquakeUri);
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
 
                 // Send the intent to launch a new activity
                 startActivity(websiteIntent);
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         String searchByPillar = sharedPrefs.getString(
-                getString(R.string.search_by_pillard_key),
+                getString(R.string.search_by_pillar_key),
                 getString(R.string.search_by_pillar_label));
         Uri baseUri = Uri.parse(URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
@@ -155,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     //This method passes the MenuItem that is selected:
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.e("in item selec", "SUCCESS");
         //To determine which item was selected and what action to take,
         //call getItemId, which returns the unique ID for the menu item
         //(defined by the android:id attribute in the menu resource).
@@ -166,7 +166,19 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             Log.e("done item selec", "SUCCESS");
             return true;
         }
-        Log.e("done item selec", "SUCCESS");
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Get a reference to the LoaderManager, in order to interact with loaders.
+        LoaderManager loaderManager = getLoaderManager();
+
+        // Restart the loader. Pass in the int ID constant defined above and pass in null for
+        // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+        // because this activity implements the LoaderCallbacks interface).//
+        loaderManager.restartLoader(NEWS_LOADER_ID, null, this);
     }
 }
