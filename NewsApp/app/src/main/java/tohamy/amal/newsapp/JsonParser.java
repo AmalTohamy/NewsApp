@@ -59,7 +59,7 @@ public final class JsonParser {
                     JSONObject currentTag = tagsArray.getJSONObject(j);
                     firstName = currentTag.getString("firstName");
                     secondName = currentTag.getString("lastName");
-                    authorName = firstName + secondName;
+                    authorName = firstName + " " + secondName;
                 }
 
                 News news = new News(sectionName, newstext, authorName, date, webUrl);
